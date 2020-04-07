@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./var/lib/postgres-data:/var/lib/postgresql/data
+    #environment:
+    #  - POSTGRES_PASSWORD=xowue21x@
+  web:
+    build: .
+    command: gunicorn dashboard.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  proxy:
+    build: deploy/nginx/.
+    depends_on:
+      - web
+    ports:
+      - "80:80"
