@@ -16,6 +16,7 @@ app = Celery('dashboard')
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 app.conf.timezone = settings.TIME_ZONE
+app.conf.broker_url = settings.CELERY_BROKER_URL
 
 
 @app.task(bind=True)
