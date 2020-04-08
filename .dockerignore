@@ -3,3 +3,4 @@ __pycache__/
 .vscode/
 dashboard/settings/local.py
 db.sqlite3
+.env

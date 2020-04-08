@@ -5,8 +5,10 @@ services:
     image: postgres
     volumes:
       - ./var/lib/postgres-data:/var/lib/postgresql/data
-    #environment:
-    #  - POSTGRES_PASSWORD=xowue21x@
+    env_file:
+      - .env
+  redis:
+    image: redis
   web:
     build: .
     command: gunicorn dashboard.wsgi:application --bind 0.0.0.0:8000 --workers 3
@@ -16,6 +18,19 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - redis
+    env_file:
+      - .env
+  broker:
+    build: .
+    command: celery -A dashboard worker
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .env
   proxy:
     build: deploy/nginx/.
     depends_on:
