@@ -1,18 +1,12 @@
 from rest_framework import serializers
 
-from .models import Events, Incidents
+from .models import Services
 
 
-class EventsSer(serializers.ModelSerializer):
-    duration = serializers.DecimalField(max_digits=11, decimal_places=2)
+class ServicesSer(serializers.ModelSerializer):
+    duration = serializers.DecimalField(max_digits=11, decimal_places=4)
     date_time = serializers.DateTimeField()
 
     class Meta:
-        model = Events
-        fields = "__all__"
-
-
-class IncidentsSer(serializers.ModelSerializer):
-    class Meta:
-        model = Incidents
+        model = Services
         fields = "__all__"

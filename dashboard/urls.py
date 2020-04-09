@@ -22,8 +22,7 @@ from events import views as events_view
 from organizations import views as organizations_view
 
 router = routers.DefaultRouter()
-router.register(r'events', events_view.EventsViewSet)
-router.register(r'incidents', events_view.IncidentsViewSet)
+router.register(r'services', events_view.ServicesViewSet)
 router.register(r'organizations', organizations_view.OrganizationsViewSet)
 
 urlpatterns = [

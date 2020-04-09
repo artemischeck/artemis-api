@@ -1,28 +1,29 @@
 from django.db import models
 
+STATUS_CHOICES = (
+    (1, "UP"),
+    (2, "WARN"),
+    (3, "SLOW"),
+    (4, "DOWN"),
+    (5, "OFF"),
+)
 
-class Events(models.Model):
-    # Capture events in time series
+
+class Services(models.Model):
+    # Capture services events in time series
     service = models.CharField(max_length=140)
-    status = models.BooleanField(default=False)
+    status = models.IntegerField(choices=STATUS_CHOICES)
     host = models.CharField(max_length=140)
     tags = models.CharField(max_length=400, blank=True, null=True)
-    request = models.TextField(blank=True, null=True)
-    response = models.TextField(blank=True, null=True)
-    duration = models.DecimalField(max_digits=11, decimal_places=2)
-    date_time = models.DateTimeField()
-    incident = models.BooleanField(default=False)
+    message = models.TextField(
+        blank=True, null=True, help_text="Status summary")
+    duration = models.DecimalField(max_digits=11, decimal_places=4)
+    date_time = models.DateTimeField(help_text="Actual captured date time")
 
+    owner = models.ForeignKey(
+        'auth.User', related_name='services', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
-
-class Incidents(models.Model):
-    # Issues captured based on events
-    event = models.ForeignKey(
-        Events, related_name='incidents', on_delete=models.CASCADE)
-    resolved = models.BooleanField(default=False)
-    threshold = models.IntegerField(default=1)
-
-    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+    class Meta:
+        unique_together = ('service', 'host', 'owner')
