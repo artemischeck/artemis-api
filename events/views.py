@@ -18,6 +18,7 @@ class ServicesViewSet(viewsets.ModelViewSet):
         """
         try:
             payload = request.data
+            payload['owner_id'] = request.user.id
             update_service.apply_async((payload, ), queue="default")
             return Response("Queued", 201)
         except Exception as ex:

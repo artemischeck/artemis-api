@@ -10,7 +10,7 @@ def update_service(payload):
         if duration:
             duration = Decimal((payload.get('duration')/(10**9)))
         service, _ = Services.objects.update_or_create(
-            owner=request.user,
+            owner_id=payload.get('owner_id'),
             label=payload.get('label'),
             host=payload.get('host'),
             defaults={

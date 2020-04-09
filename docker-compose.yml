@@ -23,7 +23,7 @@ services:
       - .env
   broker:
     build: .
-    command: celery -A dashboard worker
+    command: celery --app=dashboard worker -l INFO -Q default
     volumes:
       - .:/code
     depends_on:
