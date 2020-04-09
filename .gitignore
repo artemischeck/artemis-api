@@ -4,3 +4,4 @@ __pycache__/
 dashboard/settings/local.py
 db.sqlite3
 .env
+var/
