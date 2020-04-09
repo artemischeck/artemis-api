@@ -25,4 +25,5 @@ class Services(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     class Meta:
+        ordering = ('-status', '-date_time')
         unique_together = ('label', 'host', 'owner')
