@@ -11,7 +11,7 @@ STATUS_CHOICES = (
 
 class Services(models.Model):
     # Capture services events in time series
-    service = models.CharField(max_length=140)
+    label = models.CharField(max_length=140)
     status = models.IntegerField(choices=STATUS_CHOICES)
     host = models.CharField(max_length=140)
     tags = models.CharField(max_length=400, blank=True, null=True)
@@ -26,4 +26,4 @@ class Services(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     class Meta:
-        unique_together = ('service', 'host', 'owner')
+        unique_together = ('label', 'host', 'owner')

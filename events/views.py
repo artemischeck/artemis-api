@@ -21,7 +21,7 @@ class ServicesViewSet(viewsets.ModelViewSet):
             payload = request.data
             service, _ = Services.objects.update_or_create(
                 owner=request.user,
-                service=payload.get('service'),
+                label=payload.get('label'),
                 host=payload.get('host'),
                 defaults={
                     'tags': payload.get('tags'),
