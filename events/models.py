@@ -10,7 +10,6 @@ STATUS_CHOICES = (
 
 
 class Services(models.Model):
-    # Capture services events in time series
     label = models.CharField(max_length=140)
     status = models.IntegerField(choices=STATUS_CHOICES)
     host = models.CharField(max_length=140)
