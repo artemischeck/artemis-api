@@ -2,7 +2,7 @@ celery==4.4.2
 channels==2.4.0
 Django==3.0.5
 django-filter==2.2.0
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 psycopg2-binary==2.8.5
 redis==3.4.1
 notifiers==1.2.1
